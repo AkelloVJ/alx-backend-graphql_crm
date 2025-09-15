@@ -233,3 +233,34 @@ class Mutation(graphene.ObjectType):
     bulk_create_customers = BulkCreateCustomers.Field()
     create_product = CreateProduct.Field()
     create_order = CreateOrder.Field()
+
+
+class UpdateLowStockProducts(graphene.Mutation):
+    class Arguments:
+        increment_by = graphene.Int(required=False, default_value=10)
+
+    updated_products = graphene.List(ProductType)
+    message = graphene.String()
+    ok = graphene.Boolean()
+
+    @classmethod
+    def mutate(cls, root, info, increment_by: int = 10):
+        try:
+            increment = max(0, int(increment_by))
+        except Exception:
+            increment = 10
+        low_stock = list(Product.objects.filter(stock__lt=10))
+        if not low_stock:
+            return UpdateLowStockProducts(updated_products=[], message="No low-stock products", ok=True)
+        for product in low_stock:
+            product.stock = product.stock + increment
+        Product.objects.bulk_update(low_stock, ["stock"]) 
+        return UpdateLowStockProducts(updated_products=low_stock, message=f"Updated {len(low_stock)} products", ok=True)
+
+
+class Mutation(graphene.ObjectType):
+    create_customer = CreateCustomer.Field()
+    bulk_create_customers = BulkCreateCustomers.Field()
+    create_product = CreateProduct.Field()
+    create_order = CreateOrder.Field()
+    update_low_stock_products = UpdateLowStockProducts.Field()

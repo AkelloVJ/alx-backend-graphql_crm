@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "graphene_django",
+    "django_crontab",
     "django_filters",
     "crm",
 ]
@@ -74,3 +75,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 GRAPHENE = {
     "SCHEMA": "alx_backend_graphql_crm.schema.schema",
 }
+
+# Cron jobs for django-crontab
+CRONJOBS = [
+    ("*/5 * * * *", "crm.cron.log_crm_heartbeat"),
+    ("0 */12 * * *", "crm.cron.update_low_stock"),
+]
