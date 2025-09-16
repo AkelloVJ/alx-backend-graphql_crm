@@ -5,7 +5,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
-LOG_FILE="/tmp/customer_cleanup_log.txt"
+LOG_FILE="/tmp/customercleanuplog.txt"
 
 # Change to project directory
 cd "$PROJECT_DIR"

@@ -6,15 +6,15 @@ import requests
 
 
 GRAPHQL_URL = "http://localhost:8000/graphql"
-HEARTBEAT_LOG = Path("/tmp/crm_heartbeat_log.txt")
-LOW_STOCK_LOG = Path("/tmp/low_stock_updates_log.txt")
+HEARTBEAT_LOG = Path("/tmp/crmheartbeatlog.txt")
+LOW_STOCK_LOG = Path("/tmp/lowstockupdates_log.txt")
 
 
 def _timestamp() -> str:
     return datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
 
 
-def log_crm_heartbeat() -> None:
+def logcrmheartbeat() -> None:
     message = f"{_timestamp()} CRM is alive\n"
     try:
         HEARTBEAT_LOG.parent.mkdir(parents=True, exist_ok=True)
@@ -37,7 +37,7 @@ def log_crm_heartbeat() -> None:
         return
 
 
-def update_low_stock() -> None:
+def updatelowstock() -> None:
     mutation = """
     mutation UpdateLowStock($inc: Int){
       updateLowStockProducts(incrementBy: $inc){

@@ -78,6 +78,6 @@ GRAPHENE = {
 
 # Cron jobs for django-crontab
 CRONJOBS = [
-    ("*/5 * * * *", "crm.cron.log_crm_heartbeat"),
-    ("0 */12 * * *", "crm.cron.update_low_stock"),
+    ("*/5 * * * *", "crm.cron.logcrmheartbeat"),
+    ("0 */12 * * *", "crm.cron.updatelowstock"),
 ]

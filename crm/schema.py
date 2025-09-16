@@ -228,13 +228,6 @@ class Query(graphene.ObjectType):
         return _apply_ordering(qs, order_by or [], {"order_date", "total_amount", "created_at"})
 
 
-class Mutation(graphene.ObjectType):
-    create_customer = CreateCustomer.Field()
-    bulk_create_customers = BulkCreateCustomers.Field()
-    create_product = CreateProduct.Field()
-    create_order = CreateOrder.Field()
-
-
 class UpdateLowStockProducts(graphene.Mutation):
     class Arguments:
         increment_by = graphene.Int(required=False, default_value=10)
