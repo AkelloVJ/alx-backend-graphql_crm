@@ -3,3 +3,6 @@ graphene-django>=3.2
 django-filter>=24.2
 django-crontab>=0.7
 gql[requests]>=3.5
+celery>=5.3.0
+django-celery-beat>=2.5.0
+redis>=4.5.0

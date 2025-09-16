@@ -3,18 +3,20 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
+from gql.transport.requests import RequestsHTTPTransport
+from gql import gql, Client
 
 
 GRAPHQL_URL = "http://localhost:8000/graphql"
-HEARTBEAT_LOG = Path("/tmp/crmheartbeatlog.txt")
-LOW_STOCK_LOG = Path("/tmp/lowstockupdates_log.txt")
+HEARTBEAT_LOG = Path("/tmp/crm_heartbeat_log.txt")
+LOW_STOCK_LOG = Path("/tmp/low_stock_updates_log.txt")
 
 
 def _timestamp() -> str:
     return datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
 
 
-def logcrmheartbeat() -> None:
+def log_crm_heartbeat() -> None:
     message = f"{_timestamp()} CRM is alive\n"
     try:
         HEARTBEAT_LOG.parent.mkdir(parents=True, exist_ok=True)
